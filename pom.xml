@@ -90,6 +90,25 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <serverId>jenkins</serverId>
+                    <nexusUrl>https://nexus.cristie.com/repository/maven_group/</nexusUrl>
+                    <skipStaging>true</skipStaging>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -115,11 +134,22 @@
     </developers>
     <name>VIJava</name>
     <description>Rewritten version of the vijava library</description>
-    <repositories>
+        <repositories>
         <repository>
-            <id>maven_central</id>
-            <name>Maven Central</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
+            <id>jenkins</id>
+            <url>https://nexus.cristie.com/repository/maven_public/</url>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>jenkins2-releases</id>
+            <name>Releases</name>
+            <url>https://nexus.cristie.com/repository/maven_releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>jenkins2-snapshots</id>
+            <name>Snapshot</name>
+            <url>https://nexus.cristie.com/repository/maven_snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
